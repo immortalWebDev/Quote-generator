@@ -1,7 +1,9 @@
 let quotes = [];
 async function fetchQuotes() {
   try {
-    const response = await fetch("http://localhost:3000/api/quotes");
+    // const response = await fetch("http://localhost:3000/api/quotes");
+    const response = await fetch("https://quote-generator-backend-hrnf.onrender.com/api/quotes");
+
 
     const data = await response.json();
 

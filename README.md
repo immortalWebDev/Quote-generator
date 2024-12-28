@@ -1,6 +1,6 @@
 ## 🔤 Quote Generator
 
-A simple web-based quote generator built using HTML, Tailwind CSS, and JavaScript. This project displays random quotes from a predefined list when a button is clicked.
+A simple web-based quote generator built using HTML, Tailwind CSS, and JavaScript. This project displays random quotes from a predefined list when a button is clicked. It uses fetch API with custom cdn links to reduce the loading time. 
 
 ### ⭐ Features
 
@@ -14,7 +14,6 @@ A simple web-based quote generator built using HTML, Tailwind CSS, and JavaScrip
 project-directory/
 |-- index.html
 |-- styles.css
-|-- quotes.js
 |-- script.js
 ```
 
@@ -22,7 +21,6 @@ project-directory/
 
 - **index.html**: Contains the HTML structure of the project.
 - **styles.css**: Custom CSS (optional) to supplement Tailwind CSS.
-- **quotes.js**: Holds an array of quotes.
 - **script.js**: Contains the logic to display a random quote.
 
 ### 🖐 How to Use
@@ -37,6 +35,7 @@ project-directory/
 - **HTML**: Basic structure of the web page.
 - **Tailwind CSS**: For modern and responsive UI design.
 - **JavaScript**: Logic for selecting and displaying random quotes.
+- **Fetch API with CDN**: Used instead of local files to reduce loading time.
 
 
 ### 🤝 Contributions
@@ -50,12 +49,13 @@ project-directory/
  - This project is licensed under the MIT License.
 
 
-### 📞 Contact 
+### 📧 Contact
 
-- If you have any questions or need further assistance, feel free to contact me:
+For any inquiries, feedback, or support:
+- **Phone:** [WhatsApp](https://wa.me/917774835449)
+- **Email**: [pgbadgujar007@gmail.com](mailto:pgbadgujar007@gmail.com)
+- **Portfolio**: [My Portfolio](https://www.snapit.tech/pgbadgujar007/5w3jtzcp1e)
 
-- 📧 Email: pgbadgujar007@gmail.com
-- 💻 GitHub: immortalWebDev
 
 #### Give a ⭐ of you like this simple project
 

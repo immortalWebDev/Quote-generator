@@ -1,10 +1,9 @@
+let quotes = [];
 async function fetchQuotes() {
   try {
-    const response = await fetch(
-      "https://cdn.jsdelivr.net/gh/immortalWebDev/my-cdn@29b104eaa7e29a665a1b5924ff43a8bc7a6f9259/quotes-generator/quotes.json"
-    );
+    const response = await fetch("http://localhost:3000/api/quotes");
 
-    const data = await response.json(); 
+    const data = await response.json();
 
     if (!response.ok) {
       throw Error("Failed to fetch!");
@@ -12,6 +11,7 @@ async function fetchQuotes() {
 
     //Works like state
     quotes = data;
+    // console.log("Quotes loaded:", quotes);
   } catch (error) {
     console.error("Failed to fetch quotes data:", error);
   }
@@ -20,7 +20,7 @@ async function fetchQuotes() {
 //Display random one
 function generateQuote() {
   if (quotes.length === 0) {
-    console.error("Quotes are not loaded yet.");
+    console.log("Lading quotes...");
     return;
   }
   const randomIndex = Math.floor(Math.random() * quotes.length);

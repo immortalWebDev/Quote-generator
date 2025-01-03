@@ -1,8 +1,7 @@
-const quoteText = document.getElementById("quoteText");
-const generateButton = document.querySelector(".generate-button")
+const quoteText = document.querySelector("#quoteText");
+const generateButton = document.querySelector(".generate-button");
 
 let quotes = [];
-
 
 // Array of placeholder messages
 const placeholders = [
@@ -13,7 +12,25 @@ const placeholders = [
   "Patience is the key to greatness. Wait a moment!",
 ];
 
+function placeholderShow() {
+  if (quotes.length === 0) {
+    const randomIndex = Math.floor(Math.random() * placeholders.length);
+    quoteText.textContent = placeholders[randomIndex];
+    generateButton.style.display = "none";
+  }
+}
+
+//Display random one
+function generateQuote() {
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  const quote = quotes[randomIndex];
+  quoteText.textContent = `"${quote.text}"`;
+  document.getElementById("authorText").textContent = `- ${quote.author}`;
+  generateButton.style.display = "inline-block";
+}
+
 async function fetchQuotes() {
+  placeholderShow();
   try {
     // const response = await fetch("http://localhost:3000/api/quotes");
     const response = await fetch(
@@ -28,7 +45,7 @@ async function fetchQuotes() {
 
     //Works like state
     quotes = data;
-    // console.log("Quotes loaded:", quotes);
+    generateQuote();
   } catch (error) {
     quoteText.textContent = "Error loading quotes.";
 
@@ -36,25 +53,5 @@ async function fetchQuotes() {
   }
 }
 
-if (quotes.length === 0) {
-  const randomIndex = Math.floor(Math.random() * placeholders.length);
-  quoteText.textContent = placeholders[randomIndex];
-  generateButton.style.display = 'none'
-
-}
-
-//Display random one
-function generateQuote() {
-
-  const randomIndex = Math.floor(Math.random() * quotes.length);
-  const quote = quotes[randomIndex];
-  quoteText.textContent = `"${quote.text}"`;
-  generateButton.style.display = "inline-block"
-  document.getElementById("authorText").textContent = `- ${quote.author}`;
-}
-
 // Fetch the quotes once the page is loaded
-window.addEventListener("load", async () => {
-  await fetchQuotes();
-  generateQuote()
-});
+window.addEventListener("load", fetchQuotes);

@@ -1,5 +1,18 @@
 const quoteText = document.getElementById("quoteText");
+const generateButton = document.querySelector(".generate-button")
+
 let quotes = [];
+
+
+// Array of placeholder messages
+const placeholders = [
+  "Loading some inspiration...",
+  "Fetching pearls of wisdom...",
+  "Hang tight, a great quote is coming!",
+  "Searching for a gem of a quote...",
+  "Patience is the key to greatness. Wait a moment!",
+];
+
 async function fetchQuotes() {
   try {
     // const response = await fetch("http://localhost:3000/api/quotes");
@@ -23,22 +36,25 @@ async function fetchQuotes() {
   }
 }
 
+if (quotes.length === 0) {
+  const randomIndex = Math.floor(Math.random() * placeholders.length);
+  quoteText.textContent = placeholders[randomIndex];
+  generateButton.style.display = 'none'
+
+}
+
 //Display random one
 function generateQuote() {
-  if (quotes.length === 0) {
-    console.log("Loading quotes...");
-    quoteText.textContent = "Fetching fresh quote...";
-    return;
-  }
-  const randomIndex = Math.floor(Math.random() * quotes.length);
-  quoteText.textContent = quotes[randomIndex].text || "No quote found";
 
+  const randomIndex = Math.floor(Math.random() * quotes.length);
   const quote = quotes[randomIndex];
-  document.getElementById("quoteText").textContent = `"${quote.text}"`;
+  quoteText.textContent = `"${quote.text}"`;
+  generateButton.style.display = "inline-block"
   document.getElementById("authorText").textContent = `- ${quote.author}`;
 }
 
 // Fetch the quotes once the page is loaded
 window.addEventListener("load", async () => {
   await fetchQuotes();
+  generateQuote()
 });

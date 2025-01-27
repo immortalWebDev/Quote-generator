@@ -3,6 +3,8 @@ const generateButton = document.querySelector(".generate-button");
 
 let quotes = [];
 
+document.addEventListener("click", generateQuote);
+
 // Array of placeholder messages
 const placeholders = [
   "Loading some inspiration...",
@@ -27,31 +29,43 @@ function generateQuote() {
   quoteText.textContent = `"${quote.text}"`;
   document.getElementById("authorText").textContent = `- ${quote.author}`;
   generateButton.style.display = "inline-block";
+  generateButton.textContent = "Get another";
 }
 
 async function fetchQuotes() {
   placeholderShow();
-  try {
-    // const response = await fetch("http://localhost:3000/api/quotes");
-    const response = await fetch(
-      "https://quote-generator-backend-hrnf.onrender.com/api/quotes"
-    );
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw Error("Failed to fetch!");
-    }
-
-    //Works like state
-    quotes = data;
+  const cached = localStorage.getItem("quotesFromRender");
+  // console.log(cached)
+  if (cached) {
+    quotes = JSON.parse(cached);
+    // console.log("used cached");
     generateQuote();
-  } catch (error) {
-    quoteText.textContent = "Error loading quotes.";
+  } else {
+    try {
+      // const response = await fetch("http://localhost:3000/api/quotes");
+      const response = await fetch(
+        "https://quote-generator-backend-hrnf.onrender.com/api/quotes"
+      );
 
-    console.error("Failed to fetch quotes data:", error);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw Error("Failed to fetch!");
+      }
+
+      //Works like state
+      quotes = data;
+      // console.log("fetched new and set LS");
+      localStorage.setItem("quotesFromRender", JSON.stringify(data));
+      generateQuote();
+    } catch (error) {
+      quoteText.textContent = "Error loading quotes.";
+
+      console.error("Failed to fetch quotes data:", error);
+    }
   }
 }
 
-// Fetch the quotes once the page is loaded
-window.addEventListener("load", fetchQuotes);
+// Fetch the quotes first
+fetchQuotes();
